@@ -1,3 +1,25 @@
+
+# yj update
+## Installation
+### docker
+<details>
+<summary>Installation with Docker</summary>
+
+  - docker build
+    ```bash
+      docker build -t my-gounding-dino:latest .
+    ```
+</details>
+
+
+
+<br>
+
+---
+
+<br>
+
+
 <div align="center">
   <img src="./.asset/grounding_dino_logo.png" width="30%">
 </div>
