@@ -24,16 +24,22 @@ WORKDIR /opt/program
 #RUN git clone https://github.com/IDEA-Research/GroundingDINO.git
 RUN git clone https://github.com/Yeongjae/GroundingDINO.git
 
-RUN mkdir weights ; cd weights ; wget -q https://github.com/IDEA-Research/GroundingDINO/releases/download/v0.1.0-alpha/groundingdino_swint_ogc.pth ; cd ..
+RUN mkdir GroundingDINO/weights ; cd GroundingDINO/weights ; wget -q https://github.com/IDEA-Research/GroundingDINO/releases/download/v0.1.0-alpha/groundingdino_swint_ogc.pth ; cd ..
 
 # RUN conda install -c "nvidia/label/cuda-12.1.1" cuda -y
 ENV CUDA_HOME=$CONDA_PREFIX
 
 ENV PATH=/usr/local/cuda/bin:$PATH
 
-RUN cd GroundingDINO/ && python -m pip install .
+RUN pip install -e GroundingDINO --no-build-isolation
+
+RUN cd GroundingDINO
+# RUN cd GroundingDINO/ && python -m pip install .
 
 COPY docker_test.py GroundingDINO/docker_test.py
 
+# Expose CUDA_HOME
+RUN echo 'export CUDA_HOME=/usr/local/cuda-12.1' >> ~/.bashrc
 
-#CMD [ "python", "GroundingDINO/docker_test.py" ]
+
+#CMD [ "python", "docker_test.py" ]
